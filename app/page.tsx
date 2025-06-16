@@ -7,6 +7,19 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Code2, DollarSign, FileText, Phone, Globe, MapPin, Users, Building, Award } from "lucide-react"
 import Link from "next/link"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import { useState } from "react"
+
+// Form validation schema
+const contactFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 // Smooth scroll function
 const scrollToContact = () => {
@@ -17,57 +30,134 @@ const scrollToContact = () => {
 };
 
 export default function BondHiveLanding() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage({ type: 'success', text: 'Message sent successfully! We\'ll get back to you soon.' });
+        reset();
+      } else {
+        setSubmitMessage({ type: 'error', text: result.error || 'Failed to send message. Please try again.' });
+      }
+    } catch (error) {
+      setSubmitMessage({ type: 'error', text: 'Failed to send message. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 relative overflow-hidden">
       {/* Enhanced Background with patterns similar to presentation */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Main gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-300 via-orange-600 to-orange-400"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700"></div>
         
-        {/* Flowing wave patterns */}
+        {/* Enhanced Flowing wave patterns with better animations */}
         <div className="absolute inset-0">
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800" fill="none" preserveAspectRatio="xMidYMid slice">
             <defs>
               <linearGradient id="wave1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{stopColor: "rgba(255, 255, 255, 0.1)", stopOpacity: 1}} />
-                <stop offset="100%" style={{stopColor: "rgba(255, 255, 255, 0.05)", stopOpacity: 1}} />
+                <stop offset="0%" style={{stopColor: "rgba(255, 255, 255, 0.15)", stopOpacity: 1}} />
+                <stop offset="100%" style={{stopColor: "rgba(255, 255, 255, 0.08)", stopOpacity: 1}} />
               </linearGradient>
               <linearGradient id="wave2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{stopColor: "rgba(255, 255, 255, 0.12)", stopOpacity: 1}} />
+                <stop offset="100%" style={{stopColor: "rgba(255, 255, 255, 0.04)", stopOpacity: 1}} />
+              </linearGradient>
+              <linearGradient id="wave3" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style={{stopColor: "rgba(255, 255, 255, 0.08)", stopOpacity: 1}} />
                 <stop offset="100%" style={{stopColor: "rgba(255, 255, 255, 0.02)", stopOpacity: 1}} />
               </linearGradient>
             </defs>
             
-            {/* Large flowing curves similar to presentation */}
+            {/* Large flowing curves with enhanced animations */}
             <path
               d="M-200 100 Q300 50 600 150 Q900 250 1400 100 L1400 0 L-200 0 Z"
               fill="url(#wave1)"
               className="animate-pulse"
-              style={{animationDuration: '8s'}}
+              style={{
+                animationDuration: '8s',
+                transformOrigin: 'center',
+                animation: 'pulse 8s ease-in-out infinite, float 12s ease-in-out infinite'
+              }}
             />
             <path
               d="M-200 300 Q200 200 500 280 Q800 360 1400 220 L1400 100 Q900 250 600 150 Q300 50 -200 100 Z"
               fill="url(#wave2)"
-              style={{animationDuration: '12s'}}
+              style={{
+                animationDuration: '15s',
+                animation: 'pulse 15s ease-in-out infinite reverse, float 18s ease-in-out infinite'
+              }}
             />
             <path
               d="M-200 500 Q400 400 700 480 Q1000 560 1400 400 L1400 220 Q800 360 500 280 Q200 200 -200 300 Z"
-              fill="rgba(255, 255, 255, 0.04)"
+              fill="url(#wave3)"
+              style={{
+                animation: 'pulse 20s ease-in-out infinite, float 25s ease-in-out infinite reverse'
+              }}
             />
             
-            {/* Elliptical patterns similar to presentation */}
-            <ellipse cx="300" cy="200" rx="150" ry="80" fill="rgba(255, 255, 255, 0.05)" transform="rotate(-20 300 200)" />
-            <ellipse cx="900" cy="400" rx="200" ry="100" fill="rgba(255, 255, 255, 0.03)" transform="rotate(15 900 400)" />
-            <ellipse cx="600" cy="600" rx="180" ry="90" fill="rgba(255, 255, 255, 0.06)" transform="rotate(-10 600 600)" />
+            {/* Enhanced Elliptical patterns with rotation animations */}
+            <ellipse 
+              cx="300" cy="200" rx="150" ry="80" 
+              fill="rgba(255, 255, 255, 0.08)" 
+              transform="rotate(-20 300 200)"
+              style={{
+                animation: 'spin 30s linear infinite, pulse 12s ease-in-out infinite'
+              }}
+            />
+            <ellipse 
+              cx="900" cy="400" rx="200" ry="100" 
+              fill="rgba(255, 255, 255, 0.06)" 
+              transform="rotate(15 900 400)"
+              style={{
+                animation: 'spin 45s linear infinite reverse, pulse 18s ease-in-out infinite'
+              }}
+            />
+            <ellipse 
+              cx="600" cy="600" rx="180" ry="90" 
+              fill="rgba(255, 255, 255, 0.1)" 
+              transform="rotate(-10 600 600)"
+              style={{
+                animation: 'spin 35s linear infinite, pulse 15s ease-in-out infinite'
+              }}
+            />
           </svg>
         </div>
-        
-        {/* Floating subtle particles */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/20 rounded-full animate-bounce" style={{animationDelay: '0s', animationDuration: '4s'}}></div>
-          <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-white/30 rounded-full animate-bounce" style={{animationDelay: '1s', animationDuration: '3s'}}></div>
-          <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-white/10 rounded-full animate-bounce" style={{animationDelay: '2s', animationDuration: '5s'}}></div>
-          <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-white/25 rounded-full animate-bounce" style={{animationDelay: '3s', animationDuration: '4s'}}></div>
+
+        {/* Additional glow effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[30%] left-[20%] w-32 h-32 bg-white/5 rounded-full blur-xl" 
+               style={{animation: 'pulse 8s ease-in-out infinite, float 12s ease-in-out infinite'}}></div>
+          <div className="absolute bottom-[40%] right-[25%] w-24 h-24 bg-white/8 rounded-full blur-2xl" 
+               style={{animation: 'pulse 10s ease-in-out infinite 2s, float 15s ease-in-out infinite'}}></div>
+          <div className="absolute top-[60%] left-[50%] w-40 h-40 bg-white/3 rounded-full blur-3xl" 
+               style={{animation: 'pulse 12s ease-in-out infinite 4s, float 18s ease-in-out infinite'}}></div>
         </div>
       </div>
 
@@ -231,8 +321,61 @@ export default function BondHiveLanding() {
       </section>
 
       {/* Enhanced Services Section */}
-      <section id="services" className="py-20 px-6 bg-gradient-to-br from-orange-50 via-white to-orange-50">
-        <div className="container mx-auto">
+      <section id="services" className="py-20 px-6 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 relative overflow-hidden">
+        {/* Enhanced background patterns */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800" fill="none" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="serviceWave1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{stopColor: "rgba(255, 255, 255, 0.12)", stopOpacity: 1}} />
+                  <stop offset="100%" style={{stopColor: "rgba(255, 255, 255, 0.06)", stopOpacity: 1}} />
+                </linearGradient>
+                <linearGradient id="serviceWave2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{stopColor: "rgba(255, 255, 255, 0.08)", stopOpacity: 1}} />
+                  <stop offset="100%" style={{stopColor: "rgba(255, 255, 255, 0.03)", stopOpacity: 1}} />
+                </linearGradient>
+              </defs>
+              
+              {/* Animated wave patterns */}
+              <path
+                d="M-200 150 Q300 100 600 200 Q900 300 1400 150 L1400 0 L-200 0 Z"
+                fill="url(#serviceWave1)"
+                style={{animation: 'float 10s ease-in-out infinite, pulse 8s ease-in-out infinite'}}
+              />
+              <path
+                d="M-200 400 Q400 300 700 380 Q1000 460 1400 320 L1400 150 Q900 300 600 200 Q300 100 -200 150 Z"
+                fill="url(#serviceWave2)"
+                style={{animation: 'float 15s ease-in-out infinite reverse, pulse 12s ease-in-out infinite'}}
+              />
+              
+              {/* Rotating geometric shapes */}
+              <ellipse cx="200" cy="250" rx="120" ry="60" fill="rgba(255, 255, 255, 0.06)" 
+                       transform="rotate(-15 200 250)"
+                       style={{animation: 'spin 25s linear infinite, pulse 10s ease-in-out infinite'}} />
+              <ellipse cx="1000" cy="350" rx="180" ry="90" fill="rgba(255, 255, 255, 0.04)" 
+                       transform="rotate(20 1000 350)"
+                       style={{animation: 'spin 35s linear infinite reverse, pulse 14s ease-in-out infinite'}} />
+              <ellipse cx="600" cy="500" rx="150" ry="75" fill="rgba(255, 255, 255, 0.08)" 
+                       transform="rotate(-8 600 500)"
+                       style={{animation: 'spin 30s linear infinite, pulse 11s ease-in-out infinite'}} />
+            </svg>
+          </div>
+          
+          {/* Floating particles for services section */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-[25%] left-[10%] w-3 h-3 bg-white/20 rounded-full" 
+                 style={{animation: 'float 5s ease-in-out infinite, pulse 3s ease-in-out infinite'}}></div>
+            <div className="absolute top-[60%] right-[15%] w-2 h-2 bg-white/30 rounded-full" 
+                 style={{animation: 'float 7s ease-in-out infinite 2s, pulse 4s ease-in-out infinite'}}></div>
+            <div className="absolute bottom-[30%] left-[30%] w-4 h-4 bg-white/15 rounded-full" 
+                 style={{animation: 'float 6s ease-in-out infinite 1s, pulse 5s ease-in-out infinite'}}></div>
+            <div className="absolute top-[40%] right-[45%] w-2.5 h-2.5 bg-white/25 rounded-full" 
+                 style={{animation: 'float 8s ease-in-out infinite 3s, pulse 6s ease-in-out infinite'}}></div>
+          </div>
+        </div>
+        
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">Our Services</h2>
           </div>
@@ -355,7 +498,7 @@ export default function BondHiveLanding() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div>
                     <Label htmlFor="name" className="text-gray-900 font-medium">
                       Name
@@ -364,7 +507,11 @@ export default function BondHiveLanding() {
                       id="name"
                       placeholder="Your full name"
                       className="bg-white border-orange-200 text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:ring-orange-500 h-12 transition-all duration-300 hover:border-orange-300"
+                      {...register('name')}
                     />
+                    {errors.name && (
+                      <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="email" className="text-gray-900 font-medium">
@@ -375,7 +522,11 @@ export default function BondHiveLanding() {
                       type="email"
                       placeholder="your@email.com"
                       className="bg-white border-orange-200 text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:ring-orange-500 h-12 transition-all duration-300 hover:border-orange-300"
+                      {...register('email')}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="message" className="text-gray-900 font-medium">
@@ -385,10 +536,29 @@ export default function BondHiveLanding() {
                       id="message"
                       placeholder="Tell us about your project..."
                       className="bg-white border-orange-200 text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:ring-orange-500 min-h-[120px] transition-all duration-300 hover:border-orange-300"
+                      {...register('message')}
                     />
+                    {errors.message && (
+                      <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                    )}
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 h-12">
-                    Send Message
+                  
+                  {submitMessage && (
+                    <div className={`p-4 rounded-lg ${
+                      submitMessage.type === 'success' 
+                        ? 'bg-green-50 text-green-700 border border-green-200' 
+                        : 'bg-red-50 text-red-700 border border-red-200'
+                    }`}>
+                      {submitMessage.text}
+                    </div>
+                  )}
+                  
+                  <Button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 h-12 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>

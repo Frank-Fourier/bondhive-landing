@@ -95,14 +95,70 @@ body {
   }
 }
 
-/* Custom animations */
+/* Enhanced animations for cooler effects */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px); 
+  }
+  25% { 
+    transform: translateY(-8px) translateX(2px); 
+  }
+  50% { 
+    transform: translateY(-15px) translateX(-2px); 
+  }
+  75% { 
+    transform: translateY(-8px) translateX(1px); 
+  }
+}
+
+@keyframes spin {
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+  }
 }
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Parallax effect for depth */
+.parallax-slow {
+  animation: float 20s ease-in-out infinite;
+}
+
+.parallax-medium {
+  animation: float 15s ease-in-out infinite reverse;
+}
+
+.parallax-fast {
+  animation: float 10s ease-in-out infinite;
 }
 
 /* Enhanced hover effects */
