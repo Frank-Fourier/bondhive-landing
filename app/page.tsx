@@ -469,22 +469,22 @@ export default function BondHiveLanding() {
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                     <Phone className="h-6 w-6 text-white" />
                   </div>
-                  <span className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">+44-7394187473</span>
+                  <a href="tel:+447394187473" className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">+44-7394187473</a>
                 </div>
                 <div className="flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-orange-100 to-orange-50 hover:from-orange-200 hover:to-orange-100 transition-all duration-300 group cursor-pointer">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                     <Globe className="h-6 w-6 text-white" />
                   </div>
-                  <span className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">https://bondhive.xyz</span>
+                  <a href="mailto:info@bondhive.xyz" className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">info@bondhive.xyz</a>
                 </div>
                 <div className="flex items-start space-x-4 p-4 rounded-xl bg-gradient-to-r from-orange-100 to-orange-50 hover:from-orange-200 hover:to-orange-100 transition-all duration-300 group cursor-pointer">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                     <MapPin className="h-6 w-6 text-white" />
                   </div>
-                  <div>
+                  <a href="https://maps.google.com/maps?q=30+Churchill+Place,+London,+E14+5RE" target="_blank" rel="noopener noreferrer">
                     <p className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">30 Churchill Place</p>
                     <p className="text-gray-700">London, E14 5RE</p>
-                  </div>
+                  </a>
                 </div>
               </CardContent>
             </Card>
@@ -568,7 +568,7 @@ export default function BondHiveLanding() {
       </section>
 
       {/* Enhanced Footer */}
-      <footer className="py-12 px-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
+      <footer className="py-3 px-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-orange-600/5"></div>
         <div className="container mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
@@ -585,20 +585,10 @@ export default function BondHiveLanding() {
               <span className="text-2xl font-bold text-white tracking-tight">BondHive Ltd.</span>
             </div>
             <div className="flex space-x-6">
-              <Link href="#" className="text-gray-300 hover:text-orange-400 transition-all duration-300 font-medium relative group">
-                Terms
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-              <Link href="#" className="text-gray-300 hover:text-orange-400 transition-all duration-300 font-medium relative group">
-                Privacy Policy
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 pt-8">
             <p className="text-center text-gray-400 text-sm">
-              BondHive Ltd. is not a DAO. It is a private limited company incorporated in the British Virgin Islands.
+              BondHive Ltd. is a private limited company incorporated in the British Virgin Islands.
             </p>
+            </div>
           </div>
         </div>
       </footer>
