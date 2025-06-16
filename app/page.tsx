@@ -587,7 +587,7 @@ export default function BondHiveLanding() {
             </div>
             <div className="text-center">
               <p className="text-white/80 text-xs drop-shadow-sm">
-                Private limited company incorporated in the British Virgin Islands.
+                BondHive Ltd. is a private limited company incorporated in the British Virgin Islands.
               </p>
             </div>
           </div>
