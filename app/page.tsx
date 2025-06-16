@@ -449,7 +449,7 @@ export default function BondHiveLanding() {
       </section>
 
       {/* Enhanced Contact Section */}
-      <section id="contact" className="py-20 px-6 bg-white">
+      <section id="contact" className="py-20 px-6 bg-white pb-32">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">Contact Us</h2>
@@ -567,14 +567,15 @@ export default function BondHiveLanding() {
         </div>
       </section>
 
-      {/* Enhanced Footer */}
-      <footer className="py-3 px-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-orange-600/5"></div>
+      {/* Enhanced Footer - Sticky to bottom, transparent overlay */}
+      <footer className="fixed bottom-0 left-0 right-0 py-3 px-6 relative overflow-hidden z-50">
+        {/* Subtle background overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent backdrop-blur-sm"></div>
         <div className="container mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0 group">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-3 mb-2 md:mb-0 group">
               <div className="relative transform group-hover:scale-110 transition-transform duration-300">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="drop-shadow-lg">
+                <svg width="32" height="32" viewBox="0 0 40 40" fill="none" className="drop-shadow-lg">
                   <ellipse cx="20" cy="12" rx="18" ry="8" fill="rgba(255, 255, 255, 0.9)" />
                   <ellipse cx="20" cy="20" rx="16" ry="7" fill="rgba(255, 255, 255, 0.7)" />
                   <ellipse cx="20" cy="28" rx="18" ry="8" fill="rgba(255, 255, 255, 0.9)" />
@@ -582,12 +583,12 @@ export default function BondHiveLanding() {
                   <ellipse cx="20" cy="28" rx="12" ry="5" fill="rgba(255, 255, 255, 0.5)" />
                 </svg>
               </div>
-              <span className="text-2xl font-bold text-white tracking-tight">BondHive Ltd.</span>
+              <span className="text-lg font-bold text-white tracking-tight drop-shadow-lg">BondHive Ltd.</span>
             </div>
-            <div className="flex space-x-6">
-            <p className="text-center text-gray-400 text-sm">
-              BondHive Ltd. is a private limited company incorporated in the British Virgin Islands.
-            </p>
+            <div className="text-center">
+              <p className="text-white/80 text-xs drop-shadow-sm">
+                Private limited company incorporated in the British Virgin Islands.
+              </p>
             </div>
           </div>
         </div>
