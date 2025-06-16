@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Code2, DollarSign, FileText, Phone, Globe, MapPin, Users, Building, Award } from "lucide-react"
+import { Code2, DollarSign, FileText, Send, Globe, MapPin, Users, Building, Award, Mail} from "lucide-react"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -467,13 +467,7 @@ export default function BondHiveLanding() {
               <CardContent className="space-y-6">
                 <div className="flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-orange-100 to-orange-50 hover:from-orange-200 hover:to-orange-100 transition-all duration-300 group cursor-pointer">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Phone className="h-6 w-6 text-white" />
-                  </div>
-                  <a href="tel:+447394187473" className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">+44-7394187473</a>
-                </div>
-                <div className="flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-orange-100 to-orange-50 hover:from-orange-200 hover:to-orange-100 transition-all duration-300 group cursor-pointer">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Globe className="h-6 w-6 text-white" />
+                    <Mail className="h-6 w-6 text-white" />
                   </div>
                   <a href="mailto:info@bondhive.xyz" className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">info@bondhive.xyz</a>
                 </div>
@@ -485,6 +479,20 @@ export default function BondHiveLanding() {
                     <p className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">30 Churchill Place</p>
                     <p className="text-gray-700">London, E14 5RE</p>
                   </a>
+                </div>
+                <div className="flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-orange-100 to-orange-50 hover:from-orange-200 hover:to-orange-100 transition-all duration-300 group cursor-pointer">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </div>
+                  <a href="https://x.com/bondhive" target="_blank" rel="noopener noreferrer" className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">@bondhive</a>
+                </div>
+                <div className="flex items-center space-x-4 p-4 rounded-xl bg-gradient-to-r from-orange-100 to-orange-50 hover:from-orange-200 hover:to-orange-100 transition-all duration-300 group cursor-pointer">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <Send className="h-6 w-6 text-white" />
+                  </div>
+                  <a href="https://t.me/bondHive" target="_blank" rel="noopener noreferrer" className="text-gray-900 font-medium text-lg group-hover:text-orange-600 transition-colors duration-300">t.me/bondHive</a>
                 </div>
               </CardContent>
             </Card>
